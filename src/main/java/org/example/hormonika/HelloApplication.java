@@ -7,15 +7,12 @@ import javafx.stage.Stage;
 
 public class HelloApplication extends Application {
 
-    @Override
+    @Override // Login scenen
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("CalendarView.fxml")
-        );
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
-        stage.setTitle("Kalender");
+        stage.setTitle("Login");
         stage.show();
     }
 

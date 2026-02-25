@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.hormonika.LoginController"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.hormonika.LoginController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
 
-</AnchorPane>
+    <Label text="Login" style="-fx-font-size: 20;" />
+
+    <TextField fx:id="usernameField" promptText="Brugernavn" />
+    <PasswordField fx:id="passwordField" promptText="Adgangskode" />
+
+    <Button text="Login" onAction="#onLogin" />
+    <Label fx:id="errorLabel" textFill="red" />
+
+</VBox>
