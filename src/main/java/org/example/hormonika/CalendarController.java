@@ -127,10 +127,6 @@ public class CalendarController {
             return null;
         });
 
-        dialog.showAndWait().ifPresent(booking -> {
-            BookingStore.addBooking(datePicker.getValue(), booking);
-            buildCalendar();
-        });
     }
 
 }
