@@ -15,8 +15,8 @@ public class CustomerService {
         this.dbRepo = dbRepo;
     }
 
-
     private List<Person> customers = new ArrayList<>();
+
 
     public Person findCustomer(String name, int phoneNr) {
         for (Person c : customers) {

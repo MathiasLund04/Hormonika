@@ -12,45 +12,41 @@ import java.util.List;
 
 public class LoginController {
 
-    @FXML
-    private TextField usernameField;
-    @FXML
-    private PasswordField passwordField;
-    @FXML
-    private Label errorLabel;
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
+    @FXML private Label errorLabel;
 
     private static final List<String> usernames = new ArrayList<>();
     private static final List<String> passwords = new ArrayList<>();
 
     static {
-        usernames.add("Mads");
-        usernames.add("Ida");
-        usernames.add("Fie");
-        usernames.add("Mie");
-        usernames.add("Monika");
+        usernames.add("mads");
+        usernames.add("ida");
+        usernames.add("fie");
+        usernames.add("mie");
+        usernames.add("monika");
 
-        passwords.add("Mads123");
-        passwords.add("Ida123");
-        passwords.add("Fie123");
-        passwords.add("Mie123");
-        passwords.add("Monika123");
+        passwords.add("mads123");
+        passwords.add("ida123");
+        passwords.add("fie123");
+        passwords.add("mie123");
+        passwords.add("monika123");
 
     }
 
-    @FXML
-    private void onLogin() {
+    @FXML private void onLogin() {
         String username = usernameField.getText().trim().toLowerCase();
         String password = passwordField.getText().trim().toLowerCase();
 
         if (validateUser(username) && validatePassword(username, password)) {
-            openCalenderView();
+            openCalendarView();
         } else {
             errorLabel.setText("Forkert brugernavn eller adgangskode");
         }
     }
 
     private boolean validateUser(String username) {
-        return username.contains(username);
+        return usernames.contains(username);
     }
 
     private boolean validatePassword(String username, String password) {
@@ -58,9 +54,9 @@ public class LoginController {
         return (index >= 0) && passwords.get(index).equals(password);
     }
 
-    private void openCalenderView() {
+    private void openCalendarView() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("CalenderView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CalendarView.fxml"));
             Scene scene = new Scene(loader.load());
 
             Stage stage = (Stage) usernameField.getScene().getWindow();
@@ -70,8 +66,5 @@ public class LoginController {
             e.printStackTrace();
         }
     }
+
 }
-
-
-
-

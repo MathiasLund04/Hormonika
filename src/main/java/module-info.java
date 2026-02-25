@@ -6,4 +6,6 @@ module org.example.hormonika {
 
     opens org.example.hormonika to javafx.fxml;
     exports org.example.hormonika;
+    exports Model;
+    opens Model to javafx.fxml;
 }

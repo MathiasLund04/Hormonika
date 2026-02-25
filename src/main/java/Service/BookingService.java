@@ -12,37 +12,71 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingService {
-    private DBConfig db;
+    private DBConfig db = new DBConfig();
     private DBRepo dbRepo = new DBRepo(db);
     private final CustomerService customerService = new CustomerService(dbRepo);
 
     private List<Booking> calendar = new ArrayList<>();
-    private int nextBookingId = 0;
+    private int nextBookingId = 1;
 
     public BookingService(DBRepo dbRepo){
         this.dbRepo = dbRepo;
     }
 
-    public Booking createBooking(String name, int phoneNr, LocalDate date, LocalTime time, HairStyles haircutType, int hairdresserId, String description){
-        //lige nu... hvis ikke valideringen går igennem vil den returnere null
-        if (!validateBooking(date, time, hairdresserId)){
+    public Booking createBooking(String name, int phoneNr, LocalDate date, LocalTime time,
+                                 HairStyles haircutType, String hairdresser,
+                                 String description, LocalTime endTime) {
+
+        // Validering
+        if (!validateBookingTime(date, time, hairdresser)) {
             return null;
         }
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Navn skal udfyldes");
+        }
+        if (phoneNr == 0) {
+            throw new IllegalArgumentException("Telefonnummer skal udfyldes");
+        }
+        if (date == null) {
+            throw new IllegalArgumentException("Dato skal udfyldes");
+        }
+        if (time == null) {
+            throw new IllegalArgumentException("Tid skal udfyldes");
+        }
+        if (haircutType == null) {
+            throw new IllegalArgumentException("Klipning skal udfyldes");
+        }
+        if (hairdresser == null || hairdresser.isBlank()) {
+            throw new IllegalArgumentException("Frisør skal vælges");
+        }
 
-        //Lille tjek for at se om kunden allerede findes og tilføjer dem hvis det er en ny kunde
+        // Opret kunde hvis ny
         customerService.createCustomerIfNotExist(name, phoneNr);
 
-        //Hvis valideringen går igennem vil den lave en ny tidsbestilling
+        // Opret booking
         int id = nextBookingId++;
-        Booking newBooking = new Booking(id, name, phoneNr, date, time, haircutType, hairdresserId, description);
+        Booking newBooking = new Booking(
+                id,
+                name,
+                phoneNr,
+                date,
+                time,
+                haircutType,
+                hairdresser,      // ← STRING, ikke ID
+                description,
+                endTime
+        );
+
         calendar.add(newBooking);
         return newBooking;
     }
 
-    private boolean validateBooking(LocalDate date, LocalTime time, int hairdresserId){
+
+    //Validering til at sikre at en medarbejder ikke kan dobbeltbookes
+    private boolean validateBookingTime(LocalDate date, LocalTime time, String hairdresser){
         for (Booking b : calendar) {
 
-            boolean sameHairdresser = b.getHairdresserId() == hairdresserId;
+            boolean sameHairdresser = b.getHairdresser().equals(hairdresser);
             boolean sameDate = b.getDate().equals(date);
             boolean sameTime = b.getTime().equals(time);
             //Ekstra for lige at tjekke at tidsbestillingen stadig er aktiv

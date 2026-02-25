@@ -2,6 +2,8 @@ package Model;
 
 import Enums.HairStyles;
 import Enums.Status;
+import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,22 +15,27 @@ public class Booking {
     private LocalDate date;
     private LocalTime time;
     private HairStyles haircutType;
-    private int hairdresserId;
+    private String hairdresser;
     private String description;
     private Status status;
+    private LocalTime endTime;
 
     //Konstruktør
-    public Booking(int id, String name, int phoneNr, LocalDate date, LocalTime time, HairStyles haircutType, int hairdresserId, String description) {
+    public Booking(int id, String name, int phoneNr, LocalDate date, LocalTime time, HairStyles haircutType, String hairdresser, String description, LocalTime endTime) {
         this.id = id;
         this.name = name;
         this.phoneNr = phoneNr;
         this.date = date;
         this.time = time;
         this.haircutType = haircutType;
-        this.hairdresserId = hairdresserId;
+        this.hairdresser = hairdresser;
         this.description = description;
         this.status = Status.ACTIVE;
+        this.endTime = endTime;
     }
+
+    @FXML
+    private ComboBox<HairStyles> haircutBox;
 
     //Gettere og settere
     public int getId(){
@@ -73,11 +80,11 @@ public class Booking {
         this.haircutType = haircutType;
     }
 
-    public int getHairdresserId(){
-        return hairdresserId;
+    public String getHairdresser(){
+        return hairdresser;
     }
-    public void setHairdresserId(int hairdresserId){
-        this.hairdresserId = hairdresserId;
+    public void setHairdresser(String hairdresser){
+        this.hairdresser = hairdresser;
     }
 
     public String getDescription(){
@@ -94,4 +101,34 @@ public class Booking {
         this.status = status;
     }
 
+    public LocalTime getEndTime() { return endTime; }
+    public void setEndTime(LocalTime endTime){ this.endTime = endTime; }
+
+
+    @Override
+    public String toString(){
+        return """
+           -------------------------------
+           Booking ID: %d
+           Kunde: %s
+           Telefon: %d
+           Dato: %s
+           Tid: %s
+           Behandling: %s
+           Frisør: %s
+           Status: %s
+           Note: %s
+           -------------------------------
+           """.formatted(
+                id,
+                name,
+                phoneNr,
+                date,
+                time,
+                haircutType.getDescription(),
+                hairdresser,
+                status.getDescription(),
+                description == null || description.isBlank() ? "-" : description
+        );
+    }
 }
