@@ -1,11 +1,11 @@
-package People;
+package Model;
 
 public class Hairdresser extends Person {
     private int id;
     private String username;
     private String password;
 
-    public Hairdresser(String name, int phoneNr, int id, String username, String password) {
+    public Hairdresser(String name, String phoneNr, int id, String username, String password) {
         super(name, phoneNr);
         this.id = id;
         this.username = username;

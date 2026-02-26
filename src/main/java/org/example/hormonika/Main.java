@@ -1,8 +1,13 @@
 package org.example.hormonika;
 
+import DAL.DBConfig;
+import DAL.DBRepo;
 import Enums.HairStyles;
 import Model.Booking;
+import Repository.Booking.MySQLBookingRepository;
+import Repository.Customer.MySQLCustomerRepository;
 import Service.BookingService;
+
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -12,8 +17,9 @@ import java.util.Scanner;
 public class Main {
     private static DBConfig db = new DBConfig();
     private static DBRepo dbRepo = new DBRepo(db);
+    private static MySQLBookingRepository bRepo = new MySQLBookingRepository(db);
     private static Scanner input = new Scanner(System.in);
-    private static BookingService bs = new BookingService(dbRepo);
+    private static BookingService bs = new BookingService(bRepo);
 
     public static void main(String[] args) {
     boolean running = true;
@@ -40,11 +46,8 @@ public class Main {
                     System.out.println("Invalid choice. Try again.");
                 }
             }
-
         }
-
     }
-
     public static void showBooking(){
         for (Booking b : bs.getCalendar()){
             System.out.println(b.toString());
@@ -52,12 +55,12 @@ public class Main {
     }
     public static void newTicket() throws SQLException {
         String name;
-        int phoneNr;
+        String phoneNr;
         String dateInput;
         String timeInput;
         String endTimeInput;
         HairStyles haircutType;
-        String hairdresser;
+        int hairdresserId;
         String beskrivelse;
 
         input.nextLine();
@@ -65,7 +68,7 @@ public class Main {
         name = input.nextLine();
 
         System.out.println("Tlf nr: ");
-        phoneNr = input.nextInt();
+        phoneNr = input.nextLine();
 
         input.nextLine();
         System.out.println("Dato (yyyy-MM-dd): ");
@@ -98,17 +101,17 @@ public class Main {
                 2. Ida
                 3. Fie
                 4. Mie""");
-        hairdresser = dbRepo.getNamebyID(input.nextInt());
+        hairdresserId = input.nextInt();
+                //= dbRepo.getHairdresserNamebyID(input.nextInt());
 
         input.nextLine();
         System.out.println("Beskrivelse: ");
         beskrivelse = input.nextLine();
 
-        bs.createBooking(name,phoneNr,date,time,haircutType,hairdresser,beskrivelse,endTime);
+        bs.createBooking(name,phoneNr,date,time,haircutType,hairdresserId,beskrivelse);
 
 
     }
-    public static void newBooking(){
 
-    }
+
 }

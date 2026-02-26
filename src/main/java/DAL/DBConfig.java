@@ -1,4 +1,4 @@
-package org.example.hormonika;
+package DAL;
 
 import Exceptions.DataAccessException;
 

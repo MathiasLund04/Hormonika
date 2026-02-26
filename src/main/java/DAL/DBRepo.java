@@ -1,4 +1,4 @@
-package org.example.hormonika;
+package DAL;
 
 import Model.Booking;
 
@@ -15,16 +15,7 @@ public class DBRepo {
         this.db = db;
     }
 
-    public List<Booking> loadCalendar() throws Exception{
-        List<Booking> bookings = new ArrayList<>();
-
-
-
-
-        return new ArrayList<>(bookings);
-    }
-
-    public String getNamebyID(int id) throws SQLException {
+    public String getHairdresserNamebyID(int id) throws SQLException {
         String sql = "SELECT name FROM hairdresser WHERE id = ?";
 
         try(Connection con = db.getConnection();
@@ -37,10 +28,10 @@ public class DBRepo {
                }
            }
 
-
         }
          return null;
     }
+
 
 
 }

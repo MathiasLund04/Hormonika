@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+
+<AnchorPane maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hormonika.CalendarController">
+    <children>
+        <DatePicker fx:id="datePicker" layoutX="138.0" layoutY="22.0" prefHeight="45.0" prefWidth="312.0" />
+        <Button layoutX="467.0" layoutY="22.0" onAction="#onUpdate" prefHeight="45.0" prefWidth="108.0" style="-fx-background-color: #afc6bc; -fx-background-radius: 5; -fx-border-color: #879f94; -fx-border-width: 2; -fx-border-radius: 5;" text="Opdater" />
+        <ScrollPane fx:id="scrollPane" layoutX="25.0" layoutY="78.0" prefHeight="447.0" prefWidth="550.0">
+            <content>
+                <GridPane fx:id="grid" gridLinesVisible="true" />
+            </content>
+        </ScrollPane>
+        <Button layoutX="294.0" layoutY="536.0" onAction="#onNewAppointment" prefHeight="45.0" prefWidth="280.0" style="-fx-background-color: #87a498; -fx-background-radius: 5; -fx-border-color: #506b60; -fx-border-width: 2; -fx-border-radius: 5;" text="Opret ny tidsbestilling" />
+        <Button layoutX="25.0" layoutY="536.0" onAction="#onEditAppointment" prefHeight="45.0" prefWidth="255.0" style="-fx-background-color: #87a498; -fx-background-radius: 5; -fx-border-color: #506b60; -fx-border-width: 2; -fx-border-radius: 5;" text="Rediger eksisterende tidsbestilling" />
+        <Label fx:id="employeeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="22.0" prefHeight="45.0" prefWidth="102.0" style="-fx-background-color: #afc6bc; -fx-background-radius: 5; -fx-border-color: #879f94; -fx-border-width: 2; -fx-border-radius: 5;" text="Fie" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
+    </children>
+</AnchorPane>

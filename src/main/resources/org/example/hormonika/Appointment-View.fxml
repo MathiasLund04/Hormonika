@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.hormonika.AppointmentController">
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hormonika.AppointmentController">
+    <children>
+        <ComboBox fx:id="haircutTypeBox" layoutX="28.0" layoutY="220.0" prefHeight="45.0" prefWidth="188.0" promptText="Medarbejdere" />
+        <DatePicker layoutX="239.0" layoutY="35.0" prefHeight="35.0" prefWidth="341.0" />
+        <TextField fx:id="phoneNumber" layoutX="28.0" layoutY="160.0" prefHeight="45.0" prefWidth="188.0" promptText="Indtast: Telefon nr." />
+        <TextField fx:id="customerName" layoutX="28.0" layoutY="101.0" prefHeight="45.0" prefWidth="188.0" promptText="Indtast: Navn" />
+        <RadioButton layoutX="28.0" layoutY="344.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="112.0" text="Dame Klip">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </RadioButton>
+        <RadioButton layoutX="28.0" layoutY="376.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="112.0" text="Herre Klip">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </RadioButton>
+        <RadioButton layoutX="28.0" layoutY="404.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="112.0" text="Børne Klip">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </RadioButton>
+        <RadioButton layoutX="28.0" layoutY="431.0" mnemonicParsing="false" text="Skægtrimning">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </RadioButton>
+        <RadioButton layoutX="28.0" layoutY="458.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="112.0" text="Perm">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </RadioButton>
+        <RadioButton layoutX="29.0" layoutY="484.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="111.0" text="Favning">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </RadioButton>
+        <Label fx:id="errorChoiceLabel" layoutX="26.0" layoutY="508.0" prefHeight="52.0" prefWidth="188.0" textFill="red" />
+        <Label fx:id="employeeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="35.0" prefHeight="45.0" prefWidth="103.0" style="-fx-background-color: #afc6bc; -fx-background-radius: 5; -fx-border-color: #879f94; -fx-border-width: 2; -fx-border-radius: 5;" text="Fie" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
+        <ComboBox fx:id="haircutTypeBox1" layoutX="28.0" layoutY="278.0" prefHeight="45.0" prefWidth="188.0" promptText="Tid" />
+        <TextArea layoutX="239.0" layoutY="332.0" prefHeight="164.0" prefWidth="341.0" promptText="Her kan du beskrive hvilken service du ønsker:">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextArea>
+        <Label fx:id="makeNewAppointment" alignment="CENTER" contentDisplay="CENTER" layoutX="239.0" layoutY="512.0" prefHeight="72.0" prefWidth="341.0" style="-fx-background-color: #afc6bc; -fx-background-radius: 5; -fx-border-color: #879f94; -fx-border-width: 2; -fx-border-radius: 5;" text="Opret ny tidsbestilling" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+    </children>
 </AnchorPane>

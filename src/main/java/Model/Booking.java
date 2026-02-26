@@ -5,37 +5,65 @@ import Enums.Status;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 public class Booking {
     private int id;
     private String name;
-    private int phoneNr;
+    private String phoneNr;
     private LocalDate date;
     private LocalTime time;
     private HairStyles haircutType;
-    private String hairdresser;
+    private int hairdresserId;
+    private String hairdresserName;
     private String description;
     private Status status;
     private LocalTime endTime;
 
     //Konstruktør
-    public Booking(int id, String name, int phoneNr, LocalDate date, LocalTime time, HairStyles haircutType, String hairdresser, String description, LocalTime endTime) {
+    public Booking(int id, String name, String phoneNr, LocalDate date, LocalTime time, HairStyles haircutType, int hairdresserId, String description) {
         this.id = id;
         this.name = name;
         this.phoneNr = phoneNr;
         this.date = date;
         this.time = time;
         this.haircutType = haircutType;
-        this.hairdresser = hairdresser;
+        this.hairdresserId = hairdresserId;
         this.description = description;
         this.status = Status.ACTIVE;
-        this.endTime = endTime;
     }
 
     @FXML
     private ComboBox<HairStyles> haircutBox;
+
+    public Booking(String name, String phoneNr, LocalDate date, LocalTime time, HairStyles haircutType, int hairdresserId, String description, Status status) {
+        this.name = name;
+        this.phoneNr = phoneNr;
+        this.date = date;
+        this.time = time;
+        this.haircutType = haircutType;
+        this.hairdresserId = hairdresserId;
+        this.description = description;
+        this.status = status;
+    }
+
+    public Booking(int id, String name, String phoneNr, LocalDate date, LocalTime time, HairStyles haircutType, String hairdresser, String description, Status status) {
+        this.id = id;
+        this.name = name;
+        this.phoneNr = phoneNr;
+        this.date = date;
+        this.time = time;
+        this.haircutType = haircutType;
+        this.hairdresserName = hairdresser;
+        this.description = description;
+        this.status = status;
+    }
+
+
+
 
     //Gettere og settere
     public int getId(){
@@ -52,10 +80,10 @@ public class Booking {
         this.name = name;
     }
 
-    public int getPhoneNr(){
+    public String getPhoneNr(){
         return phoneNr;
     }
-    public void setPhoneNr(int phoneNr){
+    public void setPhoneNr(String phoneNr){
         this.phoneNr = phoneNr;
     }
 
@@ -80,11 +108,18 @@ public class Booking {
         this.haircutType = haircutType;
     }
 
-    public String getHairdresser(){
-        return hairdresser;
+    public int getHairdresserId(){
+        return hairdresserId;
     }
-    public void setHairdresser(String hairdresser){
-        this.hairdresser = hairdresser;
+    public void setHairdresserId(int hairdresserId){
+        this.hairdresserId = hairdresserId;
+    }
+
+    public String getHairdresserName(){
+        return hairdresserName;
+    }
+    public void setHairdresserName(String hairdresserName){
+        this.hairdresserName = hairdresserName;
     }
 
     public String getDescription(){
@@ -111,11 +146,11 @@ public class Booking {
            -------------------------------
            Booking ID: %d
            Kunde: %s
-           Telefon: %d
+           Telefon: %s
            Dato: %s
            Tid: %s
            Behandling: %s
-           Frisør: %s
+           Frisør: %d
            Status: %s
            Note: %s
            -------------------------------
@@ -126,7 +161,7 @@ public class Booking {
                 date,
                 time,
                 haircutType.getDescription(),
-                hairdresser,
+                hairdresserId,
                 status.getDescription(),
                 description == null || description.isBlank() ? "-" : description
         );

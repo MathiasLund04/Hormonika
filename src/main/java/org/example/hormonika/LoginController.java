@@ -56,15 +56,15 @@ public class LoginController {
 
     private void openCalendarView() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("CalendarView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Calendar-View.fxml"));
             Scene scene = new Scene(loader.load());
-
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setScene(scene);
+            SceneSwitcher.switchTo("Calendar-View");
+
             stage.setTitle("Kalender");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }

@@ -1,6 +1,6 @@
 package Service;
 
-import People.Hairdresser;
+import Model.Hairdresser;
 
 import java.util.ArrayList;
 import java.util.List;

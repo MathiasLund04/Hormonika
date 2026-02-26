@@ -1,33 +1,40 @@
 package Service;
 
-import People.Person;
-import org.example.hormonika.DBConfig;
-import org.example.hormonika.DBRepo;
+import Model.Person;
+import DAL.DBConfig;
+import Repository.Customer.CustomerRepository;
 
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerService {
-    private DBConfig db;
-    private DBRepo dbRepo = new DBRepo(db);
+    private final DBConfig db = new DBConfig();
+    private CustomerRepository cRepo;
+    private List<Person> customers;
 
-    public CustomerService(DBRepo dbRepo) {
-        this.dbRepo = dbRepo;
+
+    public CustomerService(CustomerRepository cRepo) {
+        this.cRepo = cRepo;
+        try {
+            customers = new ArrayList<>(cRepo.getCustomers());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private List<Person> customers = new ArrayList<>();
 
-
-    public Person findCustomer(String name, int phoneNr) {
+    public Person findCustomer(String name, String phoneNr) {
         for (Person c : customers) {
-            if (c.getName().equals(name) && c.getPhoneNr() == phoneNr) {
+            if (c.getName().equals(name) && c.getPhoneNr().equals(phoneNr)) {
                 return c;
             }
         }
         return null;
     }
 
-    public Person createCustomerIfNotExist(String name, int phoneNr) {
+    public Person createCustomerIfNotExist(String name, String phoneNr) {
         Person existingCustomer = findCustomer(name, phoneNr);
         if (existingCustomer != null) {
             return existingCustomer;

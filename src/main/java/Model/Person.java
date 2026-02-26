@@ -1,17 +1,17 @@
-package People;
+package Model;
 
 public class Person {
     private String name;
-    private int phoneNr;
+    private String phoneNr;
 
-    public Person(String name, int phoneNr) {
+    public Person(String name, String phoneNr) {
         this.name = name;
         this.phoneNr = phoneNr;
     }
 
     public String getName() {return name;}
-    public int getPhoneNr() {return phoneNr;}
+    public String getPhoneNr() {return phoneNr;}
 
     public void setName(String name) {this.name = name;}
-    public void setPhoneNr(int phoneNr) {this.phoneNr = phoneNr;}
+    public void setPhoneNr(String phoneNr) {this.phoneNr = phoneNr;}
 }

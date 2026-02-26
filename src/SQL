@@ -10,13 +10,13 @@ Password Varchar(100)
 
 CREATE TABLE Customer(
 name varchar(100),
-PhoneNUM int primary key
+PhoneNUM Varchar(20) primary key
 );
 
 CREATE TABLE Booking(
 id int primary key auto_increment,
 name Varchar(100),
-PhoneNum int,
+PhoneNum Varchar(20),
 Date datetime,
 Time datetime,
 HaircutType enum('MANCUT', 'WOMANCUT', 'CHILDCUT', 'COLOUR', 'PERM', 'BEARD', 'OTHER'),

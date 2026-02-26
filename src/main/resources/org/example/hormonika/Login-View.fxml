@@ -8,64 +8,42 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="600.0" prefWidth="600.0" spacing="10"
-      style="-fx-padding: 20;"
-      xmlns="http://javafx.com/javafx/25"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.hormonika.LoginController">
-
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="600.0" spacing="10" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hormonika.LoginController">
     <AnchorPane prefHeight="600.0" prefWidth="600.0">
         <children>
 
-            <TextField fx:id="usernameField" layoutX="133.0" layoutY="235.0"
-                       prefHeight="25.0" prefWidth="294.0" promptText="Brugernavn">
+            <TextField fx:id="usernameField" layoutX="133.0" layoutY="235.0" prefHeight="25.0" prefWidth="294.0" promptText="Brugernavn">
                 <font>
                     <Font size="14.0" />
                 </font>
             </TextField>
-
-            <PasswordField fx:id="passwordField" layoutX="133.0" layoutY="280.0"
-                           prefHeight="25.0" prefWidth="294.0" promptText="Adgangskode">
+            <PasswordField fx:id="passwordField" layoutX="133.0" layoutY="280.0" prefHeight="25.0" prefWidth="294.0" promptText="Adgangskode">
                 <font>
                     <Font size="14.0" />
                 </font>
             </PasswordField>
-
-            <Button layoutX="164.0" layoutY="410.0" onAction="#onLogin"
-                    prefHeight="41.0" prefWidth="239.0" text="Login">
-                <font>
-                    <Font size="18.0" />
-                </font>
-            </Button>
-
-            <Label fx:id="errorLabel" layoutX="110.0" layoutY="474.0"
-                   prefHeight="71.0" prefWidth="346.0" textFill="red" />
-
+            <Label fx:id="errorLabel" layoutX="110.0" layoutY="474.0" prefHeight="71.0" prefWidth="346.0" textFill="red" />
             <Label layoutX="116.0" layoutY="41.0" text="Hårmoni'ka" textFill="#87a498">
                 <font>
                     <Font name="Times New Roman Bold" size="64.0" />
                 </font>
             </Label>
-
-            <Label layoutX="116.0" layoutY="327.0"
-                   text="Har du glemt dit login kan du klikke på &quot;glemt kode&quot; knappen" />
-
-            <Label layoutX="24.0" layoutY="164.0"
-                   text="Her kan du som medarbejder logge ind med dit personlige login"
-                   textAlignment="CENTER">
+            <Label layoutX="116.0" layoutY="327.0" text="Har du glemt dit login kan du kilkke på &quot;glemt kode&quot; knappen" />
+            <Label layoutX="24.0" layoutY="164.0" text="Her kan du som medarbejder logge ind med mit personlige login" textAlignment="CENTER">
                 <font>
                     <Font size="18.0" />
                 </font>
             </Label>
-
-            <Button fx:id="resetLoginButton" layoutX="229.0" layoutY="354.0"
-                    mnemonicParsing="false" prefHeight="29.0" prefWidth="118.0"
-                    text="Reset dit login" textFill="#87a498" underline="true">
+            <Button fx:id="resetLoginButton" layoutX="229.0" layoutY="354.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="118.0" text="Reset dit login" textFill="#87a498" underline="true">
                 <font>
                     <Font name="System Bold" size="12.0" />
                 </font>
             </Button>
-
+            <Button layoutX="155.0" layoutY="405.0" onAction="#onLogin" prefHeight="45.0" prefWidth="266.0" style="-fx-background-color: #afc6bc; -fx-background-radius: 10; -fx-border-color: #879f94; -fx-border-width: 2; -fx-border-radius: 5;" text="Login">
+                <font>
+                    <Font name="System Bold" size="18.0" />
+                </font>
+            </Button>
         </children>
     </AnchorPane>
 

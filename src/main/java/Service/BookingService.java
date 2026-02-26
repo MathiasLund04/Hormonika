@@ -3,9 +3,13 @@ package Service;
 import Enums.HairStyles;
 import Enums.Status;
 import Model.Booking;
-import org.example.hormonika.DBConfig;
-import org.example.hormonika.DBRepo;
+import DAL.DBConfig;
+import DAL.DBRepo;
+import Repository.Booking.BookingRepository;
+import Repository.Booking.MySQLBookingRepository;
+import Repository.Customer.CustomerRepository;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -14,27 +18,34 @@ import java.util.List;
 public class BookingService {
     private DBConfig db = new DBConfig();
     private DBRepo dbRepo = new DBRepo(db);
-    private final CustomerService customerService = new CustomerService(dbRepo);
+    private final BookingRepository bRepo;
+    private CustomerRepository cRepo;
+    private final CustomerService customerService = new CustomerService(cRepo);
 
-    private List<Booking> calendar = new ArrayList<>();
+    private List<Booking> calendar;
     private int nextBookingId = 1;
 
-    public BookingService(DBRepo dbRepo){
-        this.dbRepo = dbRepo;
+    public BookingService(BookingRepository bRepo) {
+        this.bRepo = bRepo;
+        try {
+            calendar = new ArrayList<>(bRepo.getCalendar());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Booking createBooking(String name, int phoneNr, LocalDate date, LocalTime time,
-                                 HairStyles haircutType, String hairdresser,
-                                 String description, LocalTime endTime) {
+    public Booking createBooking(String name, String phoneNr, LocalDate date, LocalTime time,
+                                 HairStyles haircutType, int hairdresserId,
+                                 String description) {
 
         // Validering
-        if (!validateBookingTime(date, time, hairdresser)) {
+        if (!validateBookingTime(date, time, hairdresserId)) {
             return null;
         }
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Navn skal udfyldes");
         }
-        if (phoneNr == 0) {
+        if (phoneNr == null || phoneNr.trim().isEmpty()) {
             throw new IllegalArgumentException("Telefonnummer skal udfyldes");
         }
         if (date == null) {
@@ -46,7 +57,7 @@ public class BookingService {
         if (haircutType == null) {
             throw new IllegalArgumentException("Klipning skal udfyldes");
         }
-        if (hairdresser == null || hairdresser.isBlank()) {
+        if (hairdresserId == 0) {
             throw new IllegalArgumentException("Frisør skal vælges");
         }
 
@@ -62,21 +73,21 @@ public class BookingService {
                 date,
                 time,
                 haircutType,
-                hairdresser,      // ← STRING, ikke ID
-                description,
-                endTime
+                hairdresserId,
+                description
         );
 
         calendar.add(newBooking);
+        addBookingDB(newBooking);
         return newBooking;
     }
 
 
     //Validering til at sikre at en medarbejder ikke kan dobbeltbookes
-    private boolean validateBookingTime(LocalDate date, LocalTime time, String hairdresser){
+    private boolean validateBookingTime(LocalDate date, LocalTime time, int hairdresserId){
         for (Booking b : calendar) {
 
-            boolean sameHairdresser = b.getHairdresser().equals(hairdresser);
+            boolean sameHairdresser = b.getHairdresserId() == hairdresserId;
             boolean sameDate = b.getDate().equals(date);
             boolean sameTime = b.getTime().equals(time);
             //Ekstra for lige at tjekke at tidsbestillingen stadig er aktiv
@@ -91,13 +102,16 @@ public class BookingService {
     }
 
     public List<Booking> getCalendar(){
+
         return new ArrayList<>(calendar);
     }
 
-    public boolean addBookingDB(Booking booking){
-
-
-        return true;
+    public void addBookingDB(Booking booking){
+        try {
+            bRepo.insertBooking(booking);
+        } catch (SQLException e){
+            //Returner en besked i konsollen WIP
+        }
     }
 
 
