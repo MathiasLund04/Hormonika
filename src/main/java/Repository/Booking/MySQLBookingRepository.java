@@ -1,7 +1,7 @@
 package Repository.Booking;
 
 import DAL.DBConfig;
-import Enums.HairStyles;
+import Enums.Haircuts;
 import Enums.Status;
 import Exceptions.DataAccessException;
 import Model.Booking;
@@ -23,9 +23,19 @@ public class MySQLBookingRepository implements BookingRepository {
         List<Booking> bookings = new ArrayList<>();
 
         String sql = """
-                    SELECT Booking.id, Booking.name, Booking.PhoneNum, Booking.Date, Booking.Time, Booking.HaircutType, Hairdresser.name, Booking.Description, Booking.status 
-                    FROM Booking
-                    RIGHT JOIN Hairdresser ON Booking.Hairdresser = Hairdresser.id;
+                    
+                SELECT
+                       b.id,
+                       b.name AS booking_name,
+                       b.PhoneNum,
+                       b.Date,
+                       b.Time,
+                       b.HaircutType,
+                       h.name AS hairdresser_name,
+                       b.Description,
+                       b.status
+                   FROM Booking b
+                   JOIN Hairdresser h ON b.Hairdresser = h.id;
                     """;
 
         try (Connection con = db.getConnection();
@@ -34,12 +44,12 @@ public class MySQLBookingRepository implements BookingRepository {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String name = rs.getString("name");
+                String name = rs.getString("booking_name");
                 String phoneNr = rs.getString("PhoneNum");
                 LocalDate date = rs.getDate("Date").toLocalDate();
                 LocalTime time = rs.getTime("Time").toLocalTime();
-                HairStyles hairStyle = HairStyles.valueOf(rs.getString("HaircutType"));
-                String hairdresser =  rs.getString("Hairdresser");
+                Haircuts hairStyle = Haircuts.valueOf(rs.getString("HaircutType"));
+                String hairdresser =  rs.getString("hairdresser_name");
                 String description = rs.getString("Description");
                 Status status = Status.valueOf(rs.getString("status"));
 
@@ -95,7 +105,7 @@ public class MySQLBookingRepository implements BookingRepository {
                     String phoneNum = rs.getString("phoneNum");
                     LocalDate date = rs.getDate("date").toLocalDate();
                     LocalTime time = rs.getTime("time").toLocalTime();
-                    HairStyles haircutType = HairStyles.valueOf(rs.getString("HaircutType"));
+                    Haircuts haircutType = Haircuts.valueOf(rs.getString("HaircutType"));
                     int hairdresser = rs.getInt("Hairdresser");
                     String description = rs.getString("Description");
                     Status status = Status.valueOf(rs.getString("status"));

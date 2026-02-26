@@ -5,8 +5,8 @@ public class Hairdresser extends Person {
     private String username;
     private String password;
 
-    public Hairdresser(String name, String phoneNr, int id, String username, String password) {
-        super(name, phoneNr);
+    public Hairdresser(String name, int id, String username, String password) {
+        super(name);
         this.id = id;
         this.username = username;
         this.password = password;

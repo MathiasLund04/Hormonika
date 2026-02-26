@@ -2,10 +2,10 @@ package org.example.hormonika;
 
 import DAL.DBConfig;
 import DAL.DBRepo;
-import Enums.HairStyles;
+import Enums.Haircuts;
 import Model.Booking;
+import Repository.Booking.BookingRepository;
 import Repository.Booking.MySQLBookingRepository;
-import Repository.Customer.MySQLCustomerRepository;
 import Service.BookingService;
 
 
@@ -17,9 +17,9 @@ import java.util.Scanner;
 public class Main {
     private static DBConfig db = new DBConfig();
     private static DBRepo dbRepo = new DBRepo(db);
-    private static MySQLBookingRepository bRepo = new MySQLBookingRepository(db);
+    private static BookingRepository bRepo = new MySQLBookingRepository(db);
     private static Scanner input = new Scanner(System.in);
-    private static BookingService bs = new BookingService(bRepo);
+    private static BookingService bs = new BookingService(bRepo, db);
 
     public static void main(String[] args) {
     boolean running = true;
@@ -40,7 +40,7 @@ public class Main {
                     }
                 }
                 case 2 -> showBooking();
-                case 3 -> db.testConnection();
+                case 3 -> dbRepo.testConnection();
                 case 4 -> System.exit(0);
                 default -> {
                     System.out.println("Invalid choice. Try again.");
@@ -59,7 +59,7 @@ public class Main {
         String dateInput;
         String timeInput;
         String endTimeInput;
-        HairStyles haircutType;
+        Haircuts haircutType;
         int hairdresserId;
         String beskrivelse;
 
@@ -93,7 +93,7 @@ public class Main {
                 BEARD
                 OTHER
                 """);
-        haircutType = HairStyles.valueOf(input.nextLine());
+        haircutType = Haircuts.valueOf(input.nextLine());
 
         System.out.println("""
                 frisør:

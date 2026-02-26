@@ -1,6 +1,7 @@
 package Repository.Customer;
 
 import DAL.DBConfig;
+import Model.Customer;
 import Model.Person;
 import Service.CustomerService;
 
@@ -45,8 +46,8 @@ public class MySQLCustomerRepository implements CustomerRepository {
         return null;
     }
 
-    public List<Person> getCustomers() throws SQLException {
-        List<Person> customers = new ArrayList<>();
+    public List<Customer> getCustomers() throws SQLException {
+        List<Customer> customers = new ArrayList<>();
 
         String sql = "SELECT * FROM customers";
 
@@ -57,11 +58,10 @@ public class MySQLCustomerRepository implements CustomerRepository {
                 String name = rs.getString("name");
                 String phoneNr = rs.getString("PhoneNum");
 
-                Person customer = new Person(name, phoneNr);
+                Customer customer = new Customer(name,phoneNr);
                 customers.add(customer);
             }
             return customers;
-
         } catch (SQLException e) {
             throw new SQLException("Fejl i indlæsning af kunder");
         }

@@ -11,4 +11,6 @@ module org.example.hormonika {
     opens Model to javafx.fxml;
     exports DAL;
     opens DAL to javafx.fxml;
+    exports org.example.hormonika.Controller;
+    opens org.example.hormonika.Controller to javafx.fxml;
 }

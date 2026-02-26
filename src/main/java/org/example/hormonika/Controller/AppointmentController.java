@@ -1,7 +1,9 @@
-package org.example.hormonika;
+package org.example.hormonika.Controller;
 
-import Enums.HairStyles;
+import DAL.DBConfig;
+import Enums.Haircuts;
 import Model.Booking;
+import Repository.Booking.BookingRepository;
 import Repository.Booking.MySQLBookingRepository;
 import Service.BookingService;
 import javafx.fxml.FXML;
@@ -28,8 +30,10 @@ public class AppointmentController {
 
     @FXML private Label errorChoiceLabel;
 
+    private final DBConfig db = new DBConfig();
+    private final BookingRepository bRepo = new MySQLBookingRepository(db);
     private final BookingService bookingService =
-            new BookingService(new MySQLBookingRepository(new DAL.DBConfig()));
+            new BookingService(bRepo, db);
 
     @FXML
     public void initialize() {
@@ -55,14 +59,14 @@ public class AppointmentController {
         newAppointmentDataPicker.setValue(LocalDate.now());
     }
 
-    private HairStyles getSelectedHairStyle() {
-        if (dameKlip.isSelected()) return HairStyles.WOMANCUT;
-        if (herreKlip.isSelected()) return HairStyles.MANCUT;
-        if (borneKlip.isSelected()) return HairStyles.CHILDCUT;
-        if (skaegTrim.isSelected()) return HairStyles.BEARD;
-        if (perm.isSelected()) return HairStyles.PERM;
-        if (farvning.isSelected()) return HairStyles.COLOUR;
-        return HairStyles.OTHER;
+    private Haircuts getSelectedHairStyle() {
+        if (dameKlip.isSelected()) return Haircuts.WOMANCUT;
+        if (herreKlip.isSelected()) return Haircuts.MANCUT;
+        if (borneKlip.isSelected()) return Haircuts.CHILDCUT;
+        if (skaegTrim.isSelected()) return Haircuts.BEARD;
+        if (perm.isSelected()) return Haircuts.PERM;
+        if (farvning.isSelected()) return Haircuts.COLOUR;
+        return Haircuts.OTHER;
     }
 
     @FXML
@@ -74,7 +78,7 @@ public class AppointmentController {
             LocalDate date = newAppointmentDataPicker.getValue();
             String employeeName = haircutTypeBox.getValue();
             LocalTime time = LocalTime.parse(haircutTypeBox1.getValue());
-            HairStyles haircut = getSelectedHairStyle();
+            Haircuts haircut = getSelectedHairStyle();
             String description = descriptionArea.getText();
 
             LocalTime endTime = time.plusMinutes(30);

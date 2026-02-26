@@ -1,5 +1,6 @@
-package org.example.hormonika;
+package org.example.hormonika.Controller;
 
+import DAL.DBConfig;
 import Model.Booking;
 import Enums.Status;
 import Repository.Booking.MySQLBookingRepository;
@@ -25,8 +26,9 @@ public class CalendarController {
     private final List<String> employees = List.of("Mads", "Ida", "Fie", "Mie", "Monika");
 
     // Repository + service
+    private final DBConfig db = new DBConfig();
     private final MySQLBookingRepository bookingRepo = new MySQLBookingRepository(new DAL.DBConfig());
-    private final BookingService bookingService = new BookingService(bookingRepo);
+    private final BookingService bookingService = new BookingService(bookingRepo, db);
 
     @FXML
     public void initialize() {

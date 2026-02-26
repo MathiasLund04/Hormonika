@@ -1,14 +1,10 @@
 package Model;
 
-import Enums.HairStyles;
+import Enums.Haircuts;
 import Enums.Status;
-import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 public class Booking {
     private int id;
@@ -16,15 +12,14 @@ public class Booking {
     private String phoneNr;
     private LocalDate date;
     private LocalTime time;
-    private HairStyles haircutType;
+    private Haircuts haircutType;
     private int hairdresserId;
     private String hairdresserName;
     private String description;
     private Status status;
-    private LocalTime endTime;
-
     //Konstruktør
-    public Booking(int id, String name, String phoneNr, LocalDate date, LocalTime time, HairStyles haircutType, int hairdresserId, String description) {
+    //+id og -Status
+    public Booking(int id, String name, String phoneNr, LocalDate date, LocalTime time, Haircuts haircutType, int hairdresserId, String description) {
         this.id = id;
         this.name = name;
         this.phoneNr = phoneNr;
@@ -35,11 +30,8 @@ public class Booking {
         this.description = description;
         this.status = Status.ACTIVE;
     }
-
-    @FXML
-    private ComboBox<HairStyles> haircutBox;
-
-    public Booking(String name, String phoneNr, LocalDate date, LocalTime time, HairStyles haircutType, int hairdresserId, String description, Status status) {
+    //-id og + status
+    public Booking(String name, String phoneNr, LocalDate date, LocalTime time, Haircuts haircutType, int hairdresserId, String description, Status status) {
         this.name = name;
         this.phoneNr = phoneNr;
         this.date = date;
@@ -49,8 +41,8 @@ public class Booking {
         this.description = description;
         this.status = status;
     }
-
-    public Booking(int id, String name, String phoneNr, LocalDate date, LocalTime time, HairStyles haircutType, String hairdresser, String description, Status status) {
+    // int hairdresserId lavet om til String hairdresser
+    public Booking(int id, String name, String phoneNr, LocalDate date, LocalTime time, Haircuts haircutType, String hairdresser, String description, Status status) {
         this.id = id;
         this.name = name;
         this.phoneNr = phoneNr;
@@ -101,10 +93,10 @@ public class Booking {
         this.time = time;
     }
 
-    public HairStyles getHaircutType(){
+    public Haircuts getHaircutType(){
         return haircutType;
     }
-    public void setHaircutType(HairStyles haircutType){
+    public void setHaircutType(Haircuts haircutType){
         this.haircutType = haircutType;
     }
 
@@ -135,10 +127,6 @@ public class Booking {
     public void setStatus(Status status){
         this.status = status;
     }
-
-    public LocalTime getEndTime() { return endTime; }
-    public void setEndTime(LocalTime endTime){ this.endTime = endTime; }
-
 
     @Override
     public String toString(){

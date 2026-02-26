@@ -39,17 +39,6 @@ public class DBConfig {
         }
 
     }
-    public void testConnection() {
-        try (Connection c = getConnection()) {
-            DatabaseMetaData md = c.getMetaData();
-            System.out.println("✅ Connection OK: " + md.getURL());
-            System.out.println("    Driver: " + md.getDriverName() + " - " + md.getDriverVersion());
-
-        } catch (Exception e) {
-            System.out.println("❌ Connection ERROR: " + e.getMessage());
-            System.out.println("Tip: Check URL/USER/PASS and MySQL is running.");
-        }
-    }
 
 
 

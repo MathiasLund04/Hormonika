@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="600.0" prefWidth="600.0" spacing="10" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hormonika.LoginController">
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="600.0" spacing="10" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hormonika.Controller.LoginController">
     <AnchorPane prefHeight="600.0" prefWidth="600.0">
         <children>
 

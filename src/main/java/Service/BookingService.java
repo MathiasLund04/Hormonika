@@ -1,13 +1,12 @@
 package Service;
 
-import Enums.HairStyles;
+import Enums.Haircuts;
 import Enums.Status;
 import Model.Booking;
 import DAL.DBConfig;
-import DAL.DBRepo;
 import Repository.Booking.BookingRepository;
-import Repository.Booking.MySQLBookingRepository;
 import Repository.Customer.CustomerRepository;
+import Repository.Customer.MySQLCustomerRepository;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -16,17 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingService {
-    private DBConfig db = new DBConfig();
-    private DBRepo dbRepo = new DBRepo(db);
+    private DBConfig db;
     private final BookingRepository bRepo;
-    private CustomerRepository cRepo;
-    private final CustomerService customerService = new CustomerService(cRepo);
+    private final CustomerRepository cRepo = new MySQLCustomerRepository(db);
+    private final CustomerService customerService = new CustomerService(cRepo, db);
 
     private List<Booking> calendar;
     private int nextBookingId = 1;
 
-    public BookingService(BookingRepository bRepo) {
+    public BookingService(BookingRepository bRepo, DBConfig db) {
         this.bRepo = bRepo;
+        this.db = db;
         try {
             calendar = new ArrayList<>(bRepo.getCalendar());
         } catch (SQLException e) {
@@ -35,7 +34,7 @@ public class BookingService {
     }
 
     public Booking createBooking(String name, String phoneNr, LocalDate date, LocalTime time,
-                                 HairStyles haircutType, int hairdresserId,
+                                 Haircuts haircutType, int hairdresserId,
                                  String description) {
 
         // Validering

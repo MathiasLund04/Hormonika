@@ -1,4 +1,4 @@
-package org.example.hormonika;
+package org.example.hormonika.Controller;
 
 import  javafx.fxml.FXML;
 import  javafx.fxml.FXMLLoader;

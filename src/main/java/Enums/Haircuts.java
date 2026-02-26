@@ -1,6 +1,6 @@
 package Enums;
 
-public enum HairStyles {
+public enum Haircuts {
     MANCUT("Mande klipning"),
     WOMANCUT("Kvinde klipning"),
     CHILDCUT("Børne klipning"),
@@ -10,7 +10,7 @@ public enum HairStyles {
     OTHER("Andet");
 
     private final String description;
-    HairStyles(String description) {
+    Haircuts(String description) {
         this.description = description;
     }
     public String getDescription() {

@@ -1,6 +1,6 @@
 package Service;
 
-import Model.Person;
+import Model.Customer;
 import DAL.DBConfig;
 import Repository.Customer.CustomerRepository;
 
@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerService {
-    private final DBConfig db = new DBConfig();
-    private CustomerRepository cRepo;
-    private List<Person> customers;
+    private final DBConfig db;
+    private final CustomerRepository cRepo;
+    private List<Customer> customers;
 
 
-    public CustomerService(CustomerRepository cRepo) {
+    public CustomerService(CustomerRepository cRepo, DBConfig db) {
         this.cRepo = cRepo;
+        this.db = db;
         try {
             customers = new ArrayList<>(cRepo.getCustomers());
         } catch (SQLException e) {
@@ -25,27 +26,27 @@ public class CustomerService {
     }
 
 
-    public Person findCustomer(String name, String phoneNr) {
-        for (Person c : customers) {
-            if (c.getName().equals(name) && c.getPhoneNr().equals(phoneNr)) {
+    public Customer findCustomer(String name, String phoneNr) {
+        for (Customer c : customers) {
+            if (c.getName().equals(name) && c.getPhoneNum().equals(phoneNr)) {
                 return c;
             }
         }
         return null;
     }
 
-    public Person createCustomerIfNotExist(String name, String phoneNr) {
-        Person existingCustomer = findCustomer(name, phoneNr);
+    public Customer createCustomerIfNotExist(String name, String phoneNr) {
+        Customer existingCustomer = findCustomer(name, phoneNr);
         if (existingCustomer != null) {
             return existingCustomer;
         }
 
-        Person newCustomer = new Person(name, phoneNr);
+        Customer newCustomer = new Customer(name, phoneNr);
         customers.add(newCustomer);
         return newCustomer;
     }
 
-    public List<Person> getCustomers() {
+    public List<Customer> getCustomers() {
         return new ArrayList<>(customers);
     }
 }

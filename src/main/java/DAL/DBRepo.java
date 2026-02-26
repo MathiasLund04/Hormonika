@@ -1,37 +1,21 @@
 package DAL;
 
-import Model.Booking;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
 
 public class DBRepo {
     private final DBConfig db;
     public DBRepo(DBConfig db) {
         this.db = db;
     }
+    public void testConnection() {
+        try (Connection c = db.getConnection()) {
+            DatabaseMetaData md = c.getMetaData();
+            System.out.println("✅ Connection OK: " + md.getURL());
+            System.out.println("    Driver: " + md.getDriverName() + " - " + md.getDriverVersion());
 
-    public String getHairdresserNamebyID(int id) throws SQLException {
-        String sql = "SELECT name FROM hairdresser WHERE id = ?";
-
-        try(Connection con = db.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql)){
-            ps.setInt(1,id);
-
-           try(ResultSet rs = ps.executeQuery()) {
-               if (rs.next()) {
-                   return rs.getString("name");
-               }
-           }
-
+        } catch (Exception e) {
+            System.out.println("❌ Connection ERROR: " + e.getMessage());
+            System.out.println("Tip: Check URL/USER/PASS and MySQL is running.");
         }
-         return null;
     }
-
-
-
 }
