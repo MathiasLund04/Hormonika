@@ -9,5 +9,6 @@ public interface BookingRepository {
     List<Booking> getCalendar() throws SQLException;
     void insertBooking(Booking booking) throws SQLException;
     Booking getBookingById(int id);
+    void cancelBooking(Booking booking) throws SQLException;
 
 }

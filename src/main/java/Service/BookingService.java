@@ -113,5 +113,13 @@ public class BookingService {
         }
     }
 
+    public void cancelBookingDB(Booking booking){
+        try {
+            bRepo.cancelBooking(booking);
+        } catch (SQLException e){
+            //WIP
+        }
+    }
+
 
 }

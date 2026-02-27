@@ -122,4 +122,27 @@ public class MySQLBookingRepository implements BookingRepository {
         }
         return null; //Returner anden besked?
     }
+
+    public void cancelBooking(Booking booking) throws SQLException{
+        String sql = """
+                UPDATE booking
+                SET status = ?
+                WHERE booking.id = ?;
+        """;
+
+        try (Connection conn = db.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, Status.CANCEL.name()); //For at sikre at den tager den rigtige enum
+            ps.setInt(2, booking.getId());
+
+            int rows = ps.executeUpdate();
+            if (rows == 0){
+                throw new SQLException("Kunne ikke finde bookingen med id: " + booking.getId());
+            }
+
+        } catch (SQLException e){
+            throw new SQLException("Kunne ikke aflyse tidsbestilling"); //WIP
+        }
+
+    }
 }
