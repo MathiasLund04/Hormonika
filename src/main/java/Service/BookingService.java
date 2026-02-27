@@ -121,5 +121,13 @@ public class BookingService {
         }
     }
 
+    public void finishBookingDB(Booking booking){
+        try {
+            bRepo.finishBooking(booking);
+        } catch (SQLException e){
+            //WIP
+        }
+    }
+
 
 }

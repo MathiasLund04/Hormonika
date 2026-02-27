@@ -143,6 +143,26 @@ public class MySQLBookingRepository implements BookingRepository {
         } catch (SQLException e){
             throw new SQLException("Kunne ikke aflyse tidsbestilling"); //WIP
         }
+    }
 
+    public void finishBooking(Booking booking) throws SQLException{
+        String sql = """
+                UPDATE booking
+                SET status = ?
+                WHERE booking.id = ?;
+        """;
+
+        try (Connection conn = db.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, Status.FINISH.name());
+            ps.setInt(2, booking.getId());
+
+            int rows = ps.executeUpdate();
+            if (rows == 0){
+                throw new SQLException("Kunne ikke færdiggøre tidsbestilling med id:  " + booking.getId());
+            }
+        } catch (SQLException e){
+            throw new SQLException("Kunne ikke færdiggøre tidsbestilling");
+        }
     }
 }
